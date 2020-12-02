@@ -9,8 +9,8 @@ fn main() {
 
     'outer1: for i in 0..numbers.len() {
         for j in i + 1..numbers.len() {
-            let a = &numbers[i];
-            let b = &numbers[j];
+            let a = numbers[i];
+            let b = numbers[j];
 
             if a + b == 2020 {
                 println!("{} * {} = {}", a, b, a * b);
