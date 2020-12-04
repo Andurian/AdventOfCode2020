@@ -28,6 +28,7 @@ impl Field {
         };
     }
 
+    #[allow(dead_code)]
     fn print(&self) {
         for line in &self.field {
             for c in line {

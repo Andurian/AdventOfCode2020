@@ -18,4 +18,9 @@ path = "src/day02/day02.rs"
 name = "day03"
 path = "src/day03/day03.rs"
 
+[[bin]]
+name = "day04"
+path = "src/day04/day04.rs"
+
 [dependencies]
+substring = "^1.4.0"
