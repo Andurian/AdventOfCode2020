@@ -1,11 +1,6 @@
-use std::fs;
-
 fn main() {
-    let contents = fs::read_to_string("src/day01/input.txt").unwrap();
-    let numbers: Vec<i32> = contents
-        .split("\n")
-        .map(|x| x.parse::<i32>().unwrap())
-        .collect();
+
+    let numbers = common::parse_file_linewise_as::<i32>("src/day01/input.txt");
 
     'outer1: for i in 0..numbers.len() {
         for j in i + 1..numbers.len() {

@@ -1,5 +1,3 @@
-use std::fs;
-
 fn str_to_number(s: &str, c0: char, c1: char) -> u8 {
     let binary_str: String = s
         .chars()
@@ -21,9 +19,7 @@ fn get_seat_id(s: &str) -> i32 {
 }
 
 fn main() {
-    let input = fs::read_to_string("src/day05/input.txt").unwrap();
-
-    let mut ids: Vec<i32> = input.split("\n").map(get_seat_id).collect();
+    let mut ids = common::parse_file_linewise("src/day05/input.txt", get_seat_id);
     ids.sort();
 
     println!("Max seat ID: {}", ids[ids.len() - 1]);

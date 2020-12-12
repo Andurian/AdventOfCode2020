@@ -1,5 +1,3 @@
-use std::fs;
-
 fn count_differences(mut jolts: Vec<i32>) -> (i32, i32, i32) {
     jolts.push(0);
     jolts.sort();
@@ -19,21 +17,13 @@ fn count_differences(mut jolts: Vec<i32>) -> (i32, i32, i32) {
     return ret;
 }
 
-fn file_to_numbers(filename: &str) -> Vec<i32> {
-    fs::read_to_string(filename)
-        .unwrap()
-        .split("\n")
-        .map(|line| line.parse::<i32>().unwrap())
-        .collect()
-}
-
 fn solve_01(filename: &str) -> i32 {
-    let cnts = count_differences(file_to_numbers(filename));
+    let cnts = count_differences(common::parse_file_linewise_as::<i32>(filename));
     return cnts.0 * (cnts.2 + 1);
 }
 
 fn solve_02(filename: &str) -> u128 {
-    let mut jolts = file_to_numbers(filename);
+    let mut jolts = common::parse_file_linewise_as::<i32>(filename);
     jolts.push(0);
     jolts.sort();
     jolts.push(jolts[jolts.len() - 1] + 3);
@@ -61,7 +51,9 @@ mod test {
 
     #[test]
     fn test_difference_count() {
-        let cnts = count_differences(file_to_numbers("src/day10/input_test_01.txt"));
+        let cnts = count_differences(common::parse_file_linewise_as::<i32>(
+            "src/day10/input_test_01.txt",
+        ));
         assert_eq!(cnts.0, 7);
         assert_eq!(cnts.1, 0);
         assert_eq!(cnts.2, 4);
@@ -74,7 +66,7 @@ mod test {
     }
 
     #[test]
-    fn test_solve_02(){
+    fn test_solve_02() {
         assert_eq!(solve_02("src/day10/input_test_01.txt"), 8);
         assert_eq!(solve_02("src/day10/input_test_02.txt"), 19208);
     }

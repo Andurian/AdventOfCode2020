@@ -1,5 +1,3 @@
-use std::fs;
-
 extern crate nalgebra as na;
 use na::{Point2, Vector2};
 
@@ -34,9 +32,7 @@ struct WaitingArea {
 }
 
 impl WaitingArea {
-    fn from_string(s: &str) -> WaitingArea {
-        let lines: Vec<&str> = s.split("\n").collect();
-
+    fn from_vec(lines: &Vec<String>) -> WaitingArea {
         WaitingArea {
             area: lines
                 .iter()
@@ -179,13 +175,13 @@ fn count_occupied_visible(area: &WaitingArea, p: &Point2<i32>) -> i32 {
 }
 
 fn stable_seats_immediate_neighborhood(filename: &str) -> i32 {
-    let mut area = WaitingArea::from_string(&fs::read_to_string(filename).unwrap());
+    let mut area = WaitingArea::from_vec(&common::read_file_linewise(filename));
     while area.step(&count_occupied_neighbors, (0, 4)) {}
     area.count(Tile::Occupied)
 }
 
 fn stable_seats_visible_neighborhood(filename: &str) -> i32 {
-    let mut area = WaitingArea::from_string(&fs::read_to_string(filename).unwrap());
+    let mut area = WaitingArea::from_vec(&common::read_file_linewise(filename));
     while area.step(&count_occupied_visible, (0, 5)) {}
     area.count(Tile::Occupied)
 }

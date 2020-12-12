@@ -1,5 +1,3 @@
-use std::fs;
-
 struct Field {
     field: Vec<Vec<char>>,
     width: usize,
@@ -7,8 +5,11 @@ struct Field {
 }
 
 impl Field {
-    fn from_string(s: &String) -> Field {
-        let lines: Vec<&str> = s.split("\n").collect();
+    fn from_file(filename: &str) -> Field{
+        Field::from_vec(&common::read_file_linewise(filename))
+    }
+
+    fn from_vec(lines: &Vec<String>) -> Field {
         let height = lines.len();
         let width = lines[0].len();
 
@@ -74,8 +75,7 @@ fn count_multiple(field: &Field, directions: &[(usize, usize)]) -> i64 {
 }
 
 fn main() {
-    let input = fs::read_to_string("src/day03/input.txt").unwrap();
-    let field = Field::from_string(&input);
+    let field = Field::from_file("src/day03/input.txt");
     println!("Num trees encountered: {}", count_trees(&field, 3, 1));
     println!("Num multiplied trees: {}", count_multiple(&field, &[(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]));
 }
@@ -86,15 +86,13 @@ mod test {
 
     #[test]
     fn test_count_trees() {
-        let input = fs::read_to_string("src/day03/input_test.txt").unwrap();
-        let field = Field::from_string(&input);
+        let field = Field::from_file("src/day03/input_test.txt");
         assert_eq!(count_trees(&field, 3, 1), 7);
     }
 
     #[test]
     fn test_count_multiple() {
-        let input = fs::read_to_string("src/day03/input_test.txt").unwrap();
-        let field = Field::from_string(&input);
+        let field = Field::from_file("src/day03/input_test.txt");
         assert_eq!(
             count_multiple(&field, &[(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]),
             336

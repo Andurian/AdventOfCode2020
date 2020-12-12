@@ -1,5 +1,4 @@
 use std::collections::HashSet;
-use std::fs;
 
 fn group_count_or(answers: &str) -> i32 {
     return answers
@@ -23,13 +22,12 @@ fn group_count_and(answers: &str) -> i32 {
         .len() as i32;
 }
 
-fn total_count(groups: &Vec<&str>, f: &dyn Fn(&str) -> i32) -> i32 {
+fn total_count(groups: &Vec<String>, f: &dyn Fn(&str) -> i32) -> i32 {
     return groups.iter().map(|s| f(s)).fold(0, |a, b| a + b);
 }
 
 fn main() {
-    let input = fs::read_to_string("src/day06/input.txt").unwrap();
-    let groups: Vec<&str> = input.split("\n\n").collect();
+    let groups = common::read_grouped_file("src/day06/input.txt");
 
     println!(
         "Total count \"anyone\":   {}",
@@ -47,19 +45,13 @@ mod test {
 
     #[test]
     fn test_total_count_or() {
-        let input = fs::read_to_string("src/day06/input_test.txt").unwrap();
-        assert_eq!(
-            total_count(&input.split("\n\n").collect(), &group_count_or),
-            11
-        );
+        let groups = common::read_grouped_file("src/day06/input_test.txt");
+        assert_eq!(total_count(&groups, &group_count_or), 11);
     }
 
     #[test]
     fn test_total_count_and() {
-        let input = fs::read_to_string("src/day06/input_test.txt").unwrap();
-        assert_eq!(
-            total_count(&input.split("\n\n").collect(), &group_count_and),
-            6
-        );
+        let groups = common::read_grouped_file("src/day06/input_test.txt");
+        assert_eq!(total_count(&groups, &group_count_and), 6);
     }
 }

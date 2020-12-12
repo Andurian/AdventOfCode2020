@@ -1,5 +1,4 @@
 use std::fmt;
-use std::fs;
 
 extern crate image;
 extern crate imageproc;
@@ -249,12 +248,11 @@ impl fmt::Display for Ship {
 }
 
 fn calc_travel_distance(filename: &str) -> i32 {
-    let input = fs::read_to_string(filename).unwrap();
-    let instructions: Vec<&str> = input.split("\n").collect();
+    let instructions = common::read_file_linewise(filename);
 
     let mut ship = Ship::new();
     for i in instructions {
-        ship.take_action(i);
+        ship.take_action(&i);
     }
 
     ship.draw_path().save("src/day12/path_1.png").unwrap();
@@ -262,12 +260,11 @@ fn calc_travel_distance(filename: &str) -> i32 {
 }
 
 fn calc_travel_distance_by_waypoint(filename: &str) -> i32 {
-    let input = fs::read_to_string(filename).unwrap();
-    let instructions: Vec<&str> = input.split("\n").collect();
+    let instructions = common::read_file_linewise(filename);
 
     let mut ship = Ship::new();
     for i in instructions {
-        ship.take_waypoint_action(i);
+        ship.take_waypoint_action(&i);
     }
 
     ship.draw_path().save("src/day12/path_2.png").unwrap();

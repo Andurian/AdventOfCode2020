@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use std::fs;
 use substring::Substring;
 
 struct Passport {
@@ -9,7 +8,10 @@ struct Passport {
 impl Passport {
     fn from_string(s: &str) -> Passport {
         let mut map = HashMap::<String, String>::new();
-        let tokens: Vec<&str> = s.split(|c| c == ' ' || c == '\n').collect();
+        let tokens: Vec<&str> = s
+            .split(|c| c == ' ' || c == '\n')
+            .map(|line| line.trim())
+            .collect();
         for t in tokens {
             let key_value: Vec<&str> = t.split(":").collect();
 
@@ -114,14 +116,13 @@ impl Passport {
 }
 
 fn main() {
-    let input = fs::read_to_string("src/day04/input.txt").unwrap();
-    let data: Vec<&str> = input.split("\n\n").collect();
+    let data = common::read_grouped_file("src/day04/input.txt");
 
     let mut cnt_valid_simple: i32 = 0;
     let mut cnt_valid_extensive: i32 = 0;
 
     for d in data {
-        let p = Passport::from_string(d);
+        let p = Passport::from_string(&d);
         if p.is_valid() {
             cnt_valid_simple += 1;
         }
@@ -143,13 +144,12 @@ mod test {
 
     #[test]
     fn test_is_valid() {
-        let input = fs::read_to_string("src/day04/input_test_01.txt").unwrap();
-        let data: Vec<&str> = input.split("\n\n").collect();
+        let data = common::read_grouped_file("src/day04/input_test_01.txt");
 
         let mut passports = Vec::<Passport>::new();
 
         for d in data {
-            passports.push(Passport::from_string(d));
+            passports.push(Passport::from_string(&d));
         }
 
         assert_eq!(passports[0].is_valid(), true);
@@ -160,24 +160,19 @@ mod test {
 
     #[test]
     fn test_is_valid_extensive() {
-        let input = fs::read_to_string("src/day04/input_test_02_valid.txt").unwrap();
-        let data: Vec<&str> = input.split("\n\n").collect();
+        let data = common::read_grouped_file("src/day04/input_test_02_valid.txt");
 
-        let mut i = 0;
         for d in data {
-            println!("Test: {}", i);
-            i += 1;
-            assert_eq!(Passport::from_string(d).is_valid_extensive(), true);
+            assert_eq!(Passport::from_string(&d).is_valid_extensive(), true);
         }
     }
 
     #[test]
     fn test_is_invalid_extensive() {
-        let input = fs::read_to_string("src/day04/input_test_02_invalid.txt").unwrap();
-        let data: Vec<&str> = input.split("\n\n").collect();
+        let data = common::read_grouped_file("src/day04/input_test_02_invalid.txt");
 
         for d in data {
-            assert_eq!(Passport::from_string(d).is_valid_extensive(), false);
+            assert_eq!(Passport::from_string(&d).is_valid_extensive(), false);
         }
     }
 }

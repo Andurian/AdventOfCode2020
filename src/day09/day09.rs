@@ -1,5 +1,3 @@
-use std::fs;
-
 fn is_valid(preamble: &[u128], x: u128) -> bool {
     for i in 0..preamble.len() {
         for j in i + 1..preamble.len() {
@@ -37,16 +35,8 @@ fn find_encryption(numbers: &Vec<u128>, x: u128) -> u128 {
     panic!("Could not break encryption");
 }
 
-fn file_to_numbers(filename: &str) -> Vec<u128> {
-    fs::read_to_string(filename)
-        .unwrap()
-        .split("\n")
-        .map(|line| line.parse::<u128>().unwrap())
-        .collect()
-}
-
 fn main() {
-    let numbers = file_to_numbers("src/day09/input.txt");
+    let numbers = common::parse_file_linewise_as::<u128>("src/day09/input.txt");
     let (_, x) = check_sequence(&numbers, 25);
     println!("Fist unbuildable number: {}", x);
     println!("Encryption weakness: {}", find_encryption(&numbers, x));
@@ -67,7 +57,7 @@ mod test {
 
     #[test]
     fn test_check_sequence() {
-        let numbers = file_to_numbers("src/day09/input_test.txt");
+        let numbers = common::parse_file_linewise_as::<u128>("src/day09/input_test.txt");
         let (valid, x) = check_sequence(&numbers, 5);
         assert_eq!(valid, false);
         assert_eq!(x, 127);
@@ -75,7 +65,7 @@ mod test {
 
     #[test]
     fn test_find_encryption() {
-        let numbers = file_to_numbers("src/day09/input_test.txt");
+        let numbers = common::parse_file_linewise_as::<u128>("src/day09/input_test.txt");
         assert_eq!(find_encryption(&numbers, 127), 62);
     }
 }

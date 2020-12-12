@@ -1,5 +1,4 @@
 use std::collections::HashSet;
-use std::fs;
 
 enum InstructionType {
     NoOperation,
@@ -88,11 +87,11 @@ impl Instruction for Jump {
 }
 
 impl Program {
-    fn from_string(s: &str) -> Program {
+    fn from_vec(lines: &Vec<String>) -> Program {
         Program {
             state: State::new(),
-            code: s
-                .split("\n")
+            code: lines
+                .iter()
                 .map(|line| {
                     let tokens: Vec<&str> = line.split(" ").collect();
                     let argument = tokens[1].parse::<i32>().unwrap();
@@ -159,8 +158,7 @@ impl Program {
 }
 
 fn main() {
-    let input = fs::read_to_string("src/day08/input.txt").unwrap();
-    let mut code = Program::from_string(&input);
+    let mut code = Program::from_vec(&common::read_file_linewise("src/day08/input.txt"));
     code.try_run();
     println!("Accumulator before first loop: {}", code.state.accumulator);
 
@@ -177,16 +175,14 @@ mod test {
 
     #[test]
     fn test_acc_before_first_loop() {
-        let input = fs::read_to_string("src/day08/input_test.txt").unwrap();
-        let mut code = Program::from_string(&input);
+        let mut code = Program::from_vec(&common::read_file_linewise("src/day08/input_test.txt"));
         code.try_run();
         assert_eq!(code.state.accumulator, 5);
     }
 
     #[test]
     fn test_fix_code() {
-        let input = fs::read_to_string("src/day08/input_test.txt").unwrap();
-        let mut code = Program::from_string(&input);
+        let mut code = Program::from_vec(&common::read_file_linewise("src/day08/input_test.txt"));
         assert_eq!(code.try_fix_code(), true);
         assert_eq!(code.state.accumulator, 8);
     }

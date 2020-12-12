@@ -1,5 +1,3 @@
-use std::fs;
-
 struct Policy {
     letter: char,
     min: i32,
@@ -50,8 +48,7 @@ impl Policy {
 }
 
 fn main() {
-    let input = fs::read_to_string("src/day02/input.txt").unwrap();
-    let lines: Vec<&str> = input.split("\n").collect();
+    let lines = common::read_file_linewise("src/day02/input.txt");
     
     let mut valid_passwords_old: i32 = 0;
     let mut valid_passwords_new: i32 = 0;
