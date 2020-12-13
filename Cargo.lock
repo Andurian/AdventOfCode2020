@@ -35,6 +35,7 @@ version = "0.1.0"
 dependencies = [
  "image",
  "imageproc",
+ "modinverse",
  "nalgebra",
  "substring",
 ]
@@ -359,6 +360,15 @@ checksum = "0f2d26ec3309788e423cfbf68ad1800f061638098d76a83681af979dc4eda19d"
 dependencies = [
  "adler",
  "autocfg 1.0.1",
+]
+
+[[package]]
+name = "modinverse"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2f62f577f148cc1a9466e7065a22e59466a7d537cceba5e77e57181d0f706633"
+dependencies = [
+ "num-integer",
 ]
 
 [[package]]
