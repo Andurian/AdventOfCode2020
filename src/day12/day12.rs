@@ -189,6 +189,7 @@ impl Ship {
         v[0].abs() + v[1].abs()
     }
 
+    #[allow(dead_code)]
     fn draw_path(&self) -> GrayImage {
         let min_x = self.path.iter().min_by_key(|p| p[0]).unwrap()[0];
         let min_y = self.path.iter().min_by_key(|p| p[1]).unwrap()[1];
@@ -255,7 +256,7 @@ fn calc_travel_distance(filename: &str) -> i32 {
         ship.take_action(&i);
     }
 
-    ship.draw_path().save("src/day12/path_1.png").unwrap();
+    //ship.draw_path().save("src/day12/path_1.png").unwrap();
     ship.travel_distance()
 }
 
@@ -267,7 +268,7 @@ fn calc_travel_distance_by_waypoint(filename: &str) -> i32 {
         ship.take_waypoint_action(&i);
     }
 
-    ship.draw_path().save("src/day12/path_2.png").unwrap();
+    //ship.draw_path().save("src/day12/path_2.png").unwrap();
     ship.travel_distance()
 }
 

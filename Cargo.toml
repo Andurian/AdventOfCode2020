@@ -62,9 +62,15 @@ path = "src/day12/day12.rs"
 name = "day13"
 path = "src/day13/day13.rs"
 
+[[bin]]
+name = "day14"
+path = "src/day14/day14.rs"
+
 [dependencies]
 substring = "^1.4.0"
 nalgebra = "^0.18"
 image = "^0.23"
 imageproc = "^0.22"
 modinverse = "^0.1.1"
+regex = "^1.4.2"
+lazy_static = "^1.4.0"
