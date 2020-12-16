@@ -60,7 +60,7 @@ impl Game {
 
 fn main() {
     println!("Solution 1: {}", Game::new(&vec![0,3,1,6,7,5]).advance_to(2020));
-    println!("Solution 2: {}", Game::new(&vec![0,3,1,6,7,5]).advance_to(30000000));
+    println!("Solution 2: {}", Game::new(&vec![0,3,1,6,7,5]).advance_to(30_000_000));
 }
 
 #[cfg(test)]
