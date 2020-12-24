@@ -102,6 +102,10 @@ path = "src/day22/day22.rs"
 name = "day23"
 path = "src/day23/day23.rs"
 
+[[bin]]
+name = "day24"
+path = "src/day24/day24.rs"
+
 [dependencies]
 substring = "^1.4.0"
 nalgebra = "^0.18"
