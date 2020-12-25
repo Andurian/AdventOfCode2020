@@ -118,7 +118,7 @@ fn solve_1(filename: &str) -> i32 {
 fn solve_2(filename: &str) -> i32 {
     let mut tiles = init_tiles(filename);
 
-    for i in 0..100 {
+    for _ in 0..100 {
         let mut min_x = 0;
         let mut min_y = 0;
         let mut min_z = 0;
